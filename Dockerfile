@@ -9,12 +9,7 @@ FROM chrishah/ncbi-blast:v2.6.0
 #	apt-get clean && apt-get purge && \
 #       rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN apt-get update &&
-apt-get upgrade -y &&
-useradd -ms /bin/bash luser &&
-printf "#!/bin/bash\nexport DEBIAN_FRONTEND=noninteractive\napt-get install -y tzdata\nln -fs /usr/share/zoneinfo/Australia/Brisbane /etc/localtime\ndpkg-reconfigure --frontend noninteractive tzdata\n" >tzinst && chmod 700 tzinst && ./tzinst && rm -f tzinst &&
-apt-get install -y clustalw &&
-apt-get clean
+RUN apt-get update && apt-get upgrade -y && useradd -ms /bin/bash luser && printf "#!/bin/bash\nexport DEBIAN_FRONTEND=noninteractive\napt-get install -y tzdata\nln -fs /usr/share/zoneinfo/Australia/Brisbane /etc/localtime\ndpkg-reconfigure --frontend noninteractive tzdata\n" >tzinst && chmod 700 tzinst && ./tzinst && rm -f tzinst && apt-get install -y clustalw && apt-get clean
 
 
 RUN apt update && \
