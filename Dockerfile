@@ -18,7 +18,8 @@ RUN add-apt-repository restricted
 RUN apt-get update 
 
 RUN apt-get install -y \
-    cpanminus
+    cpanminus \
+    clustalw
 
 
 RUN cpan Parallel::ForkManager
