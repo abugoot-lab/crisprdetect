@@ -11,6 +11,12 @@ FROM chrishah/ncbi-blast:v2.6.0
 
 #RUN apt-get update && apt-get upgrade -y && useradd -ms /bin/bash luser && printf "#!/bin/bash\nexport DEBIAN_FRONTEND=noninteractive\napt-get install -y tzdata\nln -fs /usr/share/zoneinfo/Australia/Brisbane /etc/localtime\ndpkg-reconfigure --frontend noninteractive tzdata\n" >tzinst && chmod 700 tzinst && ./tzinst && rm -f tzinst && apt-get install -y clustalw && apt-get clean
 
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+RUN apt-get update && apt-get install -y software-properties-common -y apt-transport-https
+RUN apt-add-repository multiverse
+RUN add-apt-repository restricted
+RUN apt-get update 
+
 RUN apt-get install -y \
     cpanminus
 
