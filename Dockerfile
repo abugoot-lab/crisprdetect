@@ -1,12 +1,20 @@
 # Set the base image to Ubuntu
 #FROM ubuntu:14.04
-FROM biocontainers/clustalw:v2.1lgpl-6-deb_cv1
+#FROM biocontainers/clustalw:v2.1lgpl-6-deb_cv1
+FROM chrishah/ncbi-blast:v2.6.0
 
 #RUN apt-get -m update && apt-get install -y wget tar curl ncbi-blast+
 
-RUN apt-get update && apt-get -y upgrade && apt-get install -y build-essential perl-doc ncbi-blast+ && \
-	apt-get clean && apt-get purge && \
-        rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+#RUN apt-get update && apt-get -y upgrade && apt-get install -y build-essential perl-doc ncbi-blast+ && \
+#	apt-get clean && apt-get purge && \
+#       rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN apt-get update &&
+apt-get upgrade -y &&
+useradd -ms /bin/bash luser &&
+printf "#!/bin/bash\nexport DEBIAN_FRONTEND=noninteractive\napt-get install -y tzdata\nln -fs /usr/share/zoneinfo/Australia/Brisbane /etc/localtime\ndpkg-reconfigure --frontend noninteractive tzdata\n" >tzinst && chmod 700 tzinst && ./tzinst && rm -f tzinst &&
+apt-get install -y clustalw &&
+apt-get clean
 
 
 RUN apt update && \
