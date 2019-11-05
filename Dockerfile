@@ -21,10 +21,10 @@ RUN apt update && \
 
 WORKDIR /opt
 
-RUN wget http://search.cpan.org/CPAN/authors/id/Y/YA/YANICK/Parallel-ForkManager-1.19.tar.gz
-RUN tar xvzf Parallel-ForkManager-1.19.tar.gz
-RUN cd Parallel-ForkManager-1.19
-RUN perl Makefile.PL && make test && make install
+RUN wget http://search.cpan.org/CPAN/authors/id/Y/YA/YANICK/Parallel-ForkManager-1.19.tar.gz \
+    && tar xvzf Parallel-ForkManager-1.19.tar.gz \
+    && cd Parallel-ForkManager-1.19 \
+    && perl Makefile.PL && make test && make install
 
 RUN wget -O - wget https://github.com/weizhongli/cdhit/releases/download/V4.6.8/cd-hit-v4.6.8-2017-1208-source.tar.gz | \
     tar xzf - && \
