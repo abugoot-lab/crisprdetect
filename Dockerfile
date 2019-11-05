@@ -37,13 +37,18 @@ RUN apt-get -qq update && apt-get -y upgrade && \
 RUN apt-get update
 RUN apt-get install -y software-properties-common
 
+RUN wget https://www.tbi.univie.ac.at/RNA/download/sourcecode/2_4_x/ViennaRNA-2.4.14.tar.gz \
+    && tar -zxvf ViennaRNA-2.4.14.tar.gz \
+    && cd ViennaRNA-2.4.14 \ 
+    && ./configure --prefix=/opt/ViennaRNA \
+    && make install
 
-RUN apt-add-repository -y ppa:j-4/vienna-rna \
- && apt-get --quiet update \
- && apt-get -qqy install \
-    vienna-rna \
- && apt-get clean \
- && apt-get purge 
+#RUN apt-add-repository -y ppa:j-4/vienna-rna \
+# && apt-get --quiet update \
+# && apt-get -qqy install \
+#    vienna-rna \
+# && apt-get clean \
+# && apt-get purge 
 
 COPY CRISPRDetect_2.4 /opt/CRISPRDetect_2.4
 
